@@ -1,0 +1,74 @@
+# Background
+- We service and provide apps for a lot of different retailers, but aren't the appstore owners with Apple or Google. As a result, we don't have an easy way to see the scores without clicking through the links one by one
+- We do want to monitor how our apps are performing, and appstore rating is a useful metric to know how our end-users like/dislike our apps
+- We want to be able to view this on a daily basis, but as we scale, clicking and selecting apps for 20+ retailers is not time efficient
+
+# Input
+For every retailer, we want to track their iOS and Android ratings:
+- scores
+- # of reviews
+- Latest date refresh
+- Average = Weighted average across platforms, so we don't throw an error for something that has zero reviews on a specific platform, and then a group weighted average so that tiny apps with 2 ratings are treated relatively to an app with 2000 ratings
+
+# Database
+- We should track for each retailer, track by platform, and then over time. 
+- Let's implement a super light database
+- Using SQLite with SQLAlchemy for data persistence
+- Tables:
+  - retailers: Store retailer information
+  - apps: Store app information (iOS/Android)
+  - ratings: Store historical ratings data
+
+# Visualization
+- We should have a lightweight tool that doesn't require a complex environment to run on a desktop for now
+- Streamlit is preferred
+- Features:
+  - CSV upload for bulk retailer addition
+  - Manual retailer addition through UI
+  - Data table with current ratings
+  - Weighted average calculations
+  - CSV export functionality
+
+# Maintenance
+- I'd like to be able to upload a csv to refresh our retailer list, then be able to add more retailers through a button on the dashboard, or with an incremental csv file
+- CSV Format:
+  - retailer_name
+  - ios_app_id
+  - android_package_name
+  - app_name
+
+# iOS App Scrape
+- Visit the website, and grab the average score and total number of reviews
+- Using BeautifulSoup for web scraping
+- Error handling for failed scrapes
+
+# Google Play App Scrape
+- Use the tool from this repository: https://github.com/danieliu/play-scraper
+- Error handling for failed scrapes
+
+# New Requirements
+1. Data Persistence:
+   - SQLite database for storing all data
+   - Automatic database initialization
+   - Data directory creation
+
+2. Error Handling:
+   - Graceful handling of failed scrapes
+   - User feedback for errors
+   - Data validation
+
+3. User Interface:
+   - Clean, modern Streamlit interface
+   - Sidebar for settings and retailer addition
+   - Main content area for data display
+   - Download functionality for data export
+
+4. Performance:
+   - Efficient database queries
+   - Caching of scraped data
+   - Rate limiting for API calls
+
+5. Security:
+   - Input validation
+   - Safe file handling
+   - Error message sanitization

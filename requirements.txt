@@ -1,0 +1,9 @@
+requests==2.31.0
+beautifulsoup4==4.12.3
+pytest==8.0.2
+pytest-cov==4.1.0
+SQLAlchemy==1.4.50
+streamlit==1.32.2
+plotly==5.19.0
+pandas==2.2.1
+google_play_scraper==1.2.3 
